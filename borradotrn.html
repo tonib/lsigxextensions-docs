@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+	    <title>LSI.Extensiones - Verificar reorganización en borrado de transacciones</title>
+		        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta name="keywords" content="Lsi.Extensiones GeneXus extensiones extension utilidades LSI" />
+        <meta name="description" content="Un conjunto de extensiones para GeneXus" />
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <!-- Bootstrap -->
+        <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!--Custom styles-->
+        <link href="css/estilos.css" rel="stylesheet" type="text/css" media="all" />
+
+        <!--Syntax highlighter-->        
+        <script type="text/javascript" src="js/shCore.js"></script>
+        <script type="text/javascript" src="js/shBrushGenexus.js"></script>
+        <script type="text/javascript" src="js/shBrushXml.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/shThemeGenexus.css"/>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        
+
+	</head>
+	
+	<body>
+	    ﻿        <div class="container">
+        
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                            
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">LSI.Extensiones</a>
+                </div>
+                
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="http://sourceforge.net/projects/lsigxextensions/files/">Descargar versión más reciente</a></li>
+                        <li><a href="http://marketplace.genexus.com/product.aspx?lsiextensiones">GX Markeplace</a></li>
+                        <li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+                                    
+            </div>
+            <!--/.container-fluid -->
+        </div>        
+
+	    
+		<h2>Verificar reorganización en borrado de transacciones</h2>
+		<p>
+		    Esta extensión verifica si el borrado de una transacción provocará o no una reorganización
+		    en la base de datos. Es útil en kbases grandes y con transacciones duplicadas 
+		    que referencian a las mismas tablas. 
+		    En este caso es peligroso borrar transacciones que ya no se llaman sin estar seguro antes
+		    de que no haya atributos sólo instanciados en estas.
+		</p>
+		<p>
+		    La extensión se encuentra en el menú Lsi.Extensiones &gt; Verificaciones &gt; 
+		    Verificar si el borrado de la transacción actual reorganizará BBDD. La extensión verifica
+		    si el borrado de la transacción actualmente abierta provocaría que se hiciera algún cambio
+		    en la base de datos. La extensión no hace ningún cambio en la transacción.
+		</p>
+		<p>
+		    Al ejecutarla, en la ventana de Output mostrará mensajes indicando si el borrado provocaría
+		    algún cambio en la BBDD. Si es así, indica que atributos se verían afectados. 
+		    Un ejemplo de la salida de la extensión es este:
+		</p>
+		
+		<pre class="loggx">
+========== LSI.Extensiones started ==========
+Revisando atributos de la transacción TzzzPncTeC...
+warning: El atributo PncObsDoc2 se quitará de la tabla PedCnC
+warning: El atributo PncPckNro se quitará de la tabla PedCnC
+warning: Si se borra la transacción se reorganizará la bbdd
+LSI.Extensiones Success
+		</pre>
+		
+		        </div>
+		
+		
+        <footer role="contentinfo" class="pie">
+            <div class="container">
+                Desarrollado con amor y ternura por <a href="http://lsisoluciones.com/">Laboratorio de Sistemas Informáticos</a>
+            </div>
+        </footer>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+	</body>
+	
+</html>

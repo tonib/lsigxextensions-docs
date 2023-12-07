@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+	    <title>LSI.Extensiones - Buscar texto</title>
+		        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta name="keywords" content="Lsi.Extensiones GeneXus extensiones extension utilidades LSI" />
+        <meta name="description" content="Un conjunto de extensiones para GeneXus" />
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <!-- Bootstrap -->
+        <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!--Custom styles-->
+        <link href="css/estilos.css" rel="stylesheet" type="text/css" media="all" />
+
+        <!--Syntax highlighter-->        
+        <script type="text/javascript" src="js/shCore.js"></script>
+        <script type="text/javascript" src="js/shBrushGenexus.js"></script>
+        <script type="text/javascript" src="js/shBrushXml.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/shThemeGenexus.css"/>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        
+
+	</head>
+	
+	<body>
+	    ﻿        <div class="container">
+        
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                            
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">LSI.Extensiones</a>
+                </div>
+                
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="http://sourceforge.net/projects/lsigxextensions/files/">Descargar versión más reciente</a></li>
+                        <li><a href="http://marketplace.genexus.com/product.aspx?lsiextensiones">GX Markeplace</a></li>
+                        <li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+                                    
+            </div>
+            <!--/.container-fluid -->
+        </div>        
+
+	    
+		<h2>Buscar textos en fuentes GeneXus</h2>
+		<p>
+		    Esta extensión permite buscar patrones de texto (texto plano o expresiones regulares)
+		    en parte de objetos de la KBase actual. Permite buscar el texto dentro de comentarios, 
+		    en literales strings (textos entre comillas), o en cualquier parte del objeto. La extensión
+		    obtiene una lista de los objetos que contienen dicho patrón.
+		</p>
+		<p>
+		    La extensión se encuentra en el menú <i>Lsi.Extensions &gt; Tool Windows &gt; Search on Genexus
+		    sources</i>. La interface de usuario es la siguiente:
+		</p>
+		
+		<p style="text-align:center">
+		    <a href="./buscartexto.png">
+		        <img class="img-responsive" style="display:inline" alt="Imagen búsqueda texto" src="./buscartexto.png" />
+		    </a>
+		</p>
+		
+		<table class="table table-bordered">
+		    <tr>
+		        <td><b>Search text</b></td>
+		        <td>
+		            Patrón de texto a buscar en los objetos. Puede ser una expresión regular o un texto plano.
+		            Puede encontrar información de la sintaxis de las expresiones regulares en 
+		            <a href="http://msdn.microsoft.com/en-us/library/az24scfc.aspx">http://msdn.microsoft.com/en-us/library/az24scfc.aspx</a>.
+		        </td>
+		    </tr>
+		    <tr>
+		        <td><b>Is regular expression</b></td>
+		        <td>
+		            Si está marcado, el campo "Search text" es la expresión regular a buscar. Si no está marcado,
+		            "Search text" es el texto a buscar.
+		        </td>
+		    </tr>
+		    <tr>
+		        <td><b>Case sensitive</b></td>
+		        <td>
+		            Si está marcado, el texto / expresión regular indicada en "Search text" se buscará 
+		            teniendo en cuenta las mayúsculas y minúsculas indicadas. Si no está marcado, se ignorarán.
+		        </td>
+		    </tr>
+		    <tr>
+		        <td><b>Rules / Procedure / Events / Conditions</b></td>
+		        <td>
+		            Indica en qué partes de los objetos buscar el patrón de texto.
+		        </td>
+		    </tr>
+		    <tr>
+		        <td><b>Combo Anywhere / String literals / Comments</b></td>
+		        <td>
+		            Indica en que partes buscar el patrón de texto:
+		            <ul>
+		                <li>Anywhere: En cualquier parte del texto</li>
+		                <li>String literals: En constrantes de texto (textos entrecomillados)</li>
+		                <li>Comments: En comentarios de código: Líneas que empiecen por // o textos entre
+		                /* y */</li>
+		            </ul>
+		        </td>
+		    </tr>
+		    <tr>
+		        <td><b>Botón Search / Cancel</b></td>
+		        <td>
+		            Inicia o cancela la búsqueda del patrón de texto.
+		        </td>
+		    </tr>
+		</table>
+		    
+		<p>
+		    Al pulsar el botón Search, se iniciará la búsqueda, y en la lista aparecerán los objetos
+		    que contienen el patrón de texto en las partes indicadas.
+		</p>
+		
+		<div class="bs-callout bs-callout-warning">
+		    <h2>Limitaciones</h2>
+		    <ul>
+		        <li>
+		            Hay objetos que actualmente no se revisan por esta extensión: Dashboards, DataProviders, 
+		            "Work with devices".
+		        </li>
+		        <li>
+		            La extensión sólo busca texto en códigos fuente, no en forms ni layouts.
+		        </li>
+		    </ul>
+		</div>
+		
+		        </div>
+		
+		
+        <footer role="contentinfo" class="pie">
+            <div class="container">
+                Desarrollado con amor y ternura por <a href="http://lsisoluciones.com/">Laboratorio de Sistemas Informáticos</a>
+            </div>
+        </footer>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+	</body>
+	
+</html>

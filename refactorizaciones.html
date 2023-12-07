@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+	    <title>LSI.Extensiones - Refactorizaciones</title>
+		        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta name="keywords" content="Lsi.Extensiones GeneXus extensiones extension utilidades LSI" />
+        <meta name="description" content="Un conjunto de extensiones para GeneXus" />
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <!-- Bootstrap -->
+        <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!--Custom styles-->
+        <link href="css/estilos.css" rel="stylesheet" type="text/css" media="all" />
+
+        <!--Syntax highlighter-->        
+        <script type="text/javascript" src="js/shCore.js"></script>
+        <script type="text/javascript" src="js/shBrushGenexus.js"></script>
+        <script type="text/javascript" src="js/shBrushXml.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/shThemeGenexus.css"/>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        
+
+	</head>
+	
+<body>
+    ﻿        <div class="container">
+        
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                            
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">LSI.Extensiones</a>
+                </div>
+                
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="http://sourceforge.net/projects/lsigxextensions/files/">Descargar versión más reciente</a></li>
+                        <li><a href="http://marketplace.genexus.com/product.aspx?lsiextensiones">GX Markeplace</a></li>
+                        <li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+                                    
+            </div>
+            <!--/.container-fluid -->
+        </div>        
+
+
+    <h2>Extraer código a un nuevo procedimiento</h2>
+
+    <p>
+        Esta extensión permite extraer código de la parte de Eventos / Procedure de un objeto a un
+        procedimiento. Intenta hacer lo mismo que la extensión
+        <a href="http://marketplace.genexus.com/product.aspx?grefactor,es">Grefactor</a>,
+        y algunas cosas más.
+    </p>
+
+    <p>
+        Para ejecutarla hay que seleccionar el código a extraer en el editor y en el menu ir a
+        Lsi.Extensions &gt; Code &gt; Extract selected code to new procedure. Esto creará un nuevo
+        procedimiento, con el código seleccionado, y modificará el objeto original, reemplazando el
+        código seleccionado con una llamada al nuevo procedimiento.
+    </p>
+
+    <p>
+        Algunos apuntes:
+    </p>
+    <ul>
+        <li>
+            El código a extraer no puede contener definiciones de SUBs, eventos ni llamadas al
+            comando PRINT
+        </li>
+        <li>
+            El codigo a extraer puede contener llamadas a subrutinas (comando DO). En este caso,
+            la declaración de las subrutinas llamadas se extraerá al nuevo procedimiento. Las
+            subrutinas NO deben llamarse desde otros sitios fuera del código a extraer. Si es así,
+            no se dejará extraer el código (tener código duplicado es mala idea).
+        </li>
+        <li>
+            Las variables usadas en el código extraido que se usan en otras partes del objeto original
+            se declaran en la regla parm del nuevo objeto, intentando clasificarlas según se lean o
+            se escriban. Las variables que sólo se escriben en el código extraido se declaran como
+            inout:, porque no está implementado el verificar que siempre se escriban (la escritura
+            puede estar condicionada).
+        </li>
+        <li>
+            Si el código extraido contiene referencias a atributos fuera de un FOR EACH / NEW, estas
+            referencias se reemplazan por variables en el nuevo procedimiento
+        </li>
+        <li>
+            Si se extrae codigo dentro de un FOR EACH, y este contiene FOR EACH anidados, no se añaden
+            las condiciones extra necesarias al extraerlo. Hay que hacerlo a mano
+        </li>
+        <li>
+            Las variables que ya no se usan en el objeto original tras extraer el código se borran
+        </li>
+    </ul>
+
+    <p>
+        Un ejemplo:
+    </p>
+<pre class="brush: genexus">
+///* El procedimiento original *///
+FOR EACH
+	DEFINED BY CliCod
+	
+	// Inicio del codigo a extraer
+	&amp;NObras = 0
+	FOR EACH
+		DEFINED BY ObrCod
+		
+		&amp;NObras += 1
+		DO 'Direcciones'
+	ENDFOR
+	CliObsIDo = CliNomFis + ': ' + &amp;NObras + ' obras'
+	// Fin del codigo a extraer
+	
+ENDFOR
+SUB 'Direcciones'
+	DO 'UnSubAnidado'
+ENDSUB
+SUB 'UnSubAnidado'
+	// ...
+ENDSUB
+</pre>
+    <p>
+        Tras ejecutar la extensión:
+    </p>
+<pre class="brush: genexus">
+///* Reglas del nuevo procedimiento *///
+parm(
+		in:&amp;CliNomFis, 
+		// TODO: Following variables could be out:, check it out
+		inout:&amp;CliObsIDo
+);
+///* Procedure del nuevo procedimiento *///
+// Inicio del codigo a extraer
+	&amp;NObras = 0
+	FOR EACH
+		DEFINED BY ObrCod
+		
+		&amp;NObras += 1
+		DO 'Direcciones'
+	ENDFOR
+	&amp;CliObsIDo = &amp;CliNomFis + ': ' + &amp;NObras + ' obras'
+	// Fin del codigo a extraer
+SUB 'Direcciones'
+	DO 'UnSubAnidado'
+ENDSUB
+SUB 'UnSubAnidado'
+	// ...
+ENDSUB
+///* El procedure original *///
+FOR EACH
+	DEFINED BY CliCod
+	
+	&amp;CliObsIDo = CliObsIDo
+PProcedure(CliNomFis, &amp;CliObsIDo)
+CliObsIDo = &amp;CliObsIDo
+	
+ENDFOR
+</pre>
+
+    <div class="bs-callout bs-callout-warning">
+        <h2>Limitaciones</h2>
+        <ul>
+            <li>Esta extensión está en beta</li>
+            <li>Los objetos Work With Smart Devices NO están soportados</li>
+        </ul>
+    </div>
+
+    <h2>Extraer condiciones a un nuevo Data Selector</h2>
+
+    <p>
+        Esta extensión permite extraer condiciones de un Win/Webform/SD Panel, o clausulas WHERE de un FOR EACH
+        a un nuevo Data Selector.
+    </p>
+    <p>
+        Para ejecutarla hay que seleccionar el código a extraer en el editor y en el menu ir a
+        Lsi.Extensions &gt; Code &gt; Extract selected code to new Data Selector. Esto creará un nuevo
+        Data Selector, con las condiciones del código seleccionado. El código original no se modifica,
+        sólo se crea el nuevo Data Selector.
+    </p>
+    <p>
+        El código a seleccionar deben ser sentencias enteras. En caso de las conditions de un Web/Win Form
+        , o de un SD Panel, hay que seleccionar las condiciones enteras, incluyendo los puntos y coma.
+        En caso de seleccionar código de un FOR EACH, hay que incluir los WHERE completos (incluyendo
+        la palabra clave WHERE). Se puede seleccionar más de una condición a la vez.
+    </p>
+
+    <div class="bs-callout bs-callout-warning">
+        <h2>Limitaciones</h2>
+        <ul>
+            <li>Esta extensión está en beta</li>
+            <li>Los objetos Work With Smart Devices NO están soportados</li>
+            <li>
+                En caso de extraer código de una
+                sentencia FOR EACH, no está soportado seleccionar clausulas ORDER, ni DEFINED BY
+            </li>
+        </ul>
+    </div>
+                    </div>
+		
+		
+        <footer role="contentinfo" class="pie">
+            <div class="container">
+                Desarrollado con amor y ternura por <a href="http://lsisoluciones.com/">Laboratorio de Sistemas Informáticos</a>
+            </div>
+        </footer>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+</body>
+	
+</html>

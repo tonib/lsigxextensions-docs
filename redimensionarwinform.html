@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+
+	<head>
+	    <title>LSI.Extensiones - Redimensionar winform a su tamaño máximo</title>
+		        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        
+        <meta name="keywords" content="Lsi.Extensiones GeneXus extensiones extension utilidades LSI" />
+        <meta name="description" content="Un conjunto de extensiones para GeneXus" />
+        <link rel="shortcut icon" href="favicon.png">
+        
+        <!-- Bootstrap -->
+        <link href="bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet">
+    
+        <!--Custom styles-->
+        <link href="css/estilos.css" rel="stylesheet" type="text/css" media="all" />
+
+        <!--Syntax highlighter-->        
+        <script type="text/javascript" src="js/shCore.js"></script>
+        <script type="text/javascript" src="js/shBrushGenexus.js"></script>
+        <script type="text/javascript" src="js/shBrushXml.js"></script>
+        <link type="text/css" rel="stylesheet" href="css/shThemeGenexus.css"/>
+        <script type="text/javascript">SyntaxHighlighter.all();</script>
+        
+
+	</head>
+	
+	<body>
+	    ﻿        <div class="container">
+        
+        <!-- Static navbar -->
+        <div class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                            
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span
+                            class="icon-bar"></span><span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="index.html">LSI.Extensiones</a>
+                </div>
+                
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="http://sourceforge.net/projects/lsigxextensions/files/">Descargar versión más reciente</a></li>
+                        <li><a href="http://marketplace.genexus.com/product.aspx?lsiextensiones">GX Markeplace</a></li>
+                        <li><a href="syntaxhighlighter.html">SyntaxHighlighter</a></li>
+                    </ul>
+                </div>
+                <!--/.nav-collapse -->
+                                    
+            </div>
+            <!--/.container-fluid -->
+        </div>        
+
+	    
+		<h2>Redimensionar winform a su tamaño máximo</h2>
+		<p>
+		    Cuado se hace una aplicación en entorno Win, normalmente se establecen un requermimiento
+		    mínimo de la resolución que ha de tener la pantalla en los equipos cliente. Por ejemplo,
+		    se puede requerir que la resolución mínima sea de 1024 x 768. 
+		</p>
+		<p>
+		    Esta extensión redimensiona el Winform del objeto actual a ese tamaño máximo establecido.
+		    La extensión se encuentra en el menú LSI.Extensiones &gt; Poner el tamaño máximo del
+		    Winform. El tamaño máximo que puede tener el winform se define en 
+		    <a href="verificacion.html#configuracion">la ventana de configuración de las 
+		    verificaciones</a>.
+		</p>
+		
+		<div class="bs-callout bs-callout-warning">
+		    <h3>Limitaciones</h3>
+		    <ul>
+		        <li>
+		            Se ha de estar visualizando la parte de WinForm para que realmente se modifique 
+		            el winform. Por ejemplo, si se está viendo la parte de Events del winform, los cambios
+		            no se aplican.
+		        </li>
+		        <li>
+		            No es posible redimensionar winforms a un tamaño superior al de la resolución actual
+		            de la pantalla.
+		        </li>
+		    </ul>
+		</div>
+		
+		        </div>
+		
+		
+        <footer role="contentinfo" class="pie">
+            <div class="container">
+                Desarrollado con amor y ternura por <a href="http://lsisoluciones.com/">Laboratorio de Sistemas Informáticos</a>
+            </div>
+        </footer>
+
+        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bootstrap-3.2.0-dist/js/bootstrap.min.js"></script>
+
+	</body>
+	
+</html>
