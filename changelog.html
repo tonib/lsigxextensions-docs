@@ -57,6 +57,33 @@
 
 
 		<h2>Log de cambios</h2>
+		<h3>6.1</h3>
+		<ul>
+			<li>
+				Nuevo botón en la configuración para deshabilitar la validación
+				de certificados HTTPS hasta que se cierre Genexus
+			</li>
+			<li>Autocompletado: Soporte para las partes que crea el WorkWithPlus</li>
+			<li>
+				Arreglado error: Daba un aviso incorrecto de nº de parametros incorrectos en llamadas concatenadas del tipo
+				"Objeto.Udp(&amp;Variable).Trim()". Asumia incorrectamente que la llamada al objeto era la ulitma función de la cadena
+				de llamadas (en este caso Trim()).
+			</li>
+			<li>
+				Preparar producción / zip: Arreglado error. Si se preparaba un fichero con una extensión diferente a la indicada
+				en la configuración, se cambiaba la extensión del fichero a la indicada en la configuración
+			</li>
+			<li>
+				A partir de esta versión, la configuración para preparar la producción se guarda en un fichero en la kb con nombre
+				"lsigx_production_xml"
+			</li>
+		</ul>
+
+		<h3>6.0.1</h3>
+		<ul>
+			<li>Ev3: Arreglados errores enviando correos con la tarea de msbuild. Ahora se usa TLS 1.2</li>
+			<li>Soporte para Gx18U7</li>
+		</ul>
 
 		<h3>6.0</h3>
 		<p>
@@ -97,7 +124,7 @@
 				que los indicados en el generador
 			</li>
 		</ul>
-		
+
 		<h3>2.11.0 / 3.4.0 / 4.3.0 / 5.1.0</h3>
 		<p>Nuevas funciones:</p>
 		<ul>
